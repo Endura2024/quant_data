@@ -1,0 +1,16 @@
+{
+  "_checkout": "2022.6.3",
+  "_output_dir": "/Users/yanzhang/Projects/financialEngineering/algoTrading/code/quant_data",
+  "_repo_dir": "/Users/yanzhang/.cookiecutters/cookiecutter-hypermodern-python",
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "Yan Zhang",
+  "copyright_year": "2024",
+  "development_status": "Development Status :: 1 - Planning",
+  "email": "jenzhang688@gmail.com",
+  "friendly_name": "Quant_Data",
+  "github_user": "Endura2024",
+  "license": "GPL-3.0",
+  "package_name": "quant_data_util",
+  "project_name": "quant_data",
+  "version": "0.0.0"
+}

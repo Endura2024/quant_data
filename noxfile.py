@@ -142,8 +142,8 @@ def precommit(session: Session) -> None:
 @session(python=python_versions[0])
 def safety(session: Session) -> None:
     """Scan dependencies for insecure packages."""
-    if os.getenv('SKIP_SAFETY'):
-        session.skip('Skipping safety checks as directed.')
+    if os.getenv("SKIP_SAFETY"):
+        session.skip("Skipping safety checks as directed.")
     requirements = session.poetry.export_requirements()
     session.install("safety")
     session.run("safety", "check", "--full-report", f"--file={requirements}")

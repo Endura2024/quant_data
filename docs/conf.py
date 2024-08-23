@@ -1,4 +1,5 @@
 """Sphinx configuration."""
+
 project = "Quant_Data"
 author = "Yan Zhang"
 copyright = "2024, Yan Zhang"

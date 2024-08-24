@@ -178,9 +178,22 @@ def coverage(session: Session) -> None:
     args = session.posargs or ["report"]
 
     session.install("coverage[toml]")
+    debug_mode = os.getenv("DEBUG", "false").lower() == "true"
+    # List files in the current directory
+
+    if debug_mode:
+        files = os.listdir(os.getcwd())
+        session.log("Files in the current directory:")
+        for file in files:
+            session.log(file)
 
     if not session.posargs and any(Path().glob(".coverage.*")):
         session.run("coverage", "combine")
+        session.log("coverage combine coverage")
+    
+    if not session.posargs and any(Path().glob("coverage-data.*")):
+        session.run("coverage", "combine")
+        session.log("coverage combine coverage-data")
 
     session.run("coverage", *args)
 

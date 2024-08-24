@@ -204,10 +204,9 @@ def coverage_combine_report(session: Session) -> None:
 
     if debug_mode:
         session.log(f"session.posargs: {session.posargs}")
-        list_contents(Path.cwd())
 
     if session.posargs:
-        directory_pattern = session.posargs[0]
+        directory_pattern = session.posargs[0] + ".*"
         session.log(f"Searching for directories matching: {directory_pattern}")
 
         # Find all directories matching the pattern

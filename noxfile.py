@@ -179,12 +179,12 @@ def coverage(session: Session) -> None:
 
     session.install("coverage[toml]")
     debug_mode = os.getenv("DEBUG", "false").lower() == "true"
-    file_pattern = os.getenv('COVERAGE_FILE', '.coverage.')+'*'
+    file_pattern = os.getenv("COVERAGE_FILE", ".coverage.") + "*"
     # List files in the current directory
 
     if debug_mode:
-        session.log(f'session.posargs: {session.posargs}')
-        session.log(f'file pattern: {file_pattern}')
+        session.log(f"session.posargs: {session.posargs}")
+        session.log(f"file pattern: {file_pattern}")
 
     if not session.posargs and any(Path().glob(file_pattern)):
         session.log(f"coverage combine {file_pattern}")

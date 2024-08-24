@@ -29,6 +29,7 @@ jobs:
       FORCE_COLOR: "1"
       PRE_COMMIT_COLOR: "always"
       SKIP_SAFETY: "1"
+      COVERAGE_FILE: .coverage.${{ matrix.os }}.${{ matrix.python }}
 
     steps:
       - name: Check out the repository
@@ -91,8 +92,6 @@ jobs:
             ${{ steps.pre-commit-cache.outputs.result }}-
 
       - name: Run Nox
-        env:
-          COVERAGE_FILE: .coverage.${{ matrix.os }}
         run: |
           nox --python=${{ matrix.python }}
 

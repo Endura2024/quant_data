@@ -29,7 +29,6 @@ jobs:
       FORCE_COLOR: "1"
       PRE_COMMIT_COLOR: "always"
       SKIP_SAFETY: "1"
-      COVERAGE_FILE: .coverage.${{ matrix.os }}.${{ matrix.python }}
 
     steps:
       - name: Check out the repository
@@ -99,7 +98,7 @@ jobs:
         if: always() && matrix.session == 'tests'
         uses: "actions/upload-artifact@v4.3.6"
         with:
-          name: coverage-data-${{ matrix.os }}-${{ matrix.python }}
+          name: .coverage.${{ matrix.os }}.${{ matrix.python }}
           path: ".coverage.*"
 
       - name: Upload documentation
@@ -142,7 +141,7 @@ jobs:
       - name: Download coverage data
         uses: actions/download-artifact@v4.1.8
         with:
-          pattern: coverage-data*
+          pattern: .coverage.*
 
       - name: Combine coverage data and display human readable report
         env:

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "quant_data"
+name = "endura_quant_data"
 version = "0.0.0"
 description = "Quant_Data"
 authors = ["Yan Zhang <jenzhang688@gmail.com>"]

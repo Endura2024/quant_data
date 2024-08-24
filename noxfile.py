@@ -277,7 +277,7 @@ def docs(session: Session) -> None:
     session.run("sphinx-autobuild", *args)
 
 
-def list_contents(path):
+def list_contents(path: Path) -> None:
     """Recursively lists contents of the directory."""
     for item in path.iterdir():
         if item.is_dir():

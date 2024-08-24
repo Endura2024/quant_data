@@ -190,7 +190,7 @@ def coverage(session: Session) -> None:
     if not session.posargs and any(Path().glob(".coverage.*")):
         session.run("coverage", "combine")
         session.log("coverage combine coverage")
-    
+
     if not session.posargs and any(Path().glob("coverage-data.*")):
         session.run("coverage", "combine")
         session.log("coverage combine coverage-data")

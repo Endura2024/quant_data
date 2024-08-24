@@ -4,6 +4,7 @@ import os
 import shlex
 import shutil
 import sys
+from glob import glob
 from pathlib import Path
 from textwrap import dedent
 
@@ -184,13 +185,42 @@ def coverage(session: Session) -> None:
 
     if debug_mode:
         session.log(f"session.posargs: {session.posargs}")
-        session.log(f"file pattern: {file_pattern}")
+        list_contents(Path.cwd())
 
     if not session.posargs and any(Path().glob(file_pattern)):
-        session.log(f"coverage combine {file_pattern}")
+        if debug_mode:
+            session.log(f"coverage combine {file_pattern}")
         session.run("coverage", "combine")
 
     session.run("coverage", *args)
+
+
+@session(python=python_versions[0])
+def coverage_combine_report(session: Session) -> None:
+    """Dedicate to combine operation that take additional argument."""
+    session.install("coverage[toml]")
+    debug_mode = os.getenv("DEBUG", "false").lower() == "true"
+    command = ["coverage", "combine"]
+
+    if debug_mode:
+        session.log(f"session.posargs: {session.posargs}")
+        list_contents(Path.cwd())
+
+    if session.posargs:
+        directory_pattern = session.posargs[0]
+        session.log(f"Searching for directories matching: {directory_pattern}")
+
+        # Find all directories matching the pattern
+        directories = [d for d in glob(directory_pattern) if os.path.isdir(d)]
+        if directories:
+            session.log(f"Directories found: {directories}")
+            command.extend(directories)
+            session.run(*command)
+    else:
+        if any(Path().glob(".coverage.*")):
+            session.run("coverage", "combine")
+
+    session.run("coverage", "report")
 
 
 @session(python=python_versions[0])
@@ -245,3 +275,15 @@ def docs(session: Session) -> None:
         shutil.rmtree(build_dir)
 
     session.run("sphinx-autobuild", *args)
+
+
+def list_contents(path):
+    """Recursively lists contents of the directory."""
+    for item in path.iterdir():
+        if item.is_dir():
+            print(f"{item} is a directory:")
+            list_contents(item)  # Recursive call
+        elif item.is_file():
+            print(f"{item} is a file.")
+        else:
+            print(f"{item} is neither a file nor a directory.")
